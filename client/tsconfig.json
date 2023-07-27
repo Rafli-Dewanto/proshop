@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "baseUrl": ".",
+        "types": ["node", "vite/client"],
         "target": "es5", // Specify ECMAScript target version
         "lib": ["dom", "dom.iterable", "esnext"], // List of library files to be included in the compilation
         "allowJs": true, // Allow JavaScript files to be compiled
@@ -20,14 +20,11 @@
         "noUnusedLocals": true, // Report errors on unused locals
         "noUnusedParameters": true, // Report errors on unused parameters
         "incremental": true, // Enable incremental compilation by reading/writing information from prior compilations to a file on disk
-        "noFallthroughCasesInSwitch": true, // Report errors for fallthrough cases in switch statement
-        "paths": {
-            "@/*": ["./src/*"]
-        },
-        "typeRoots": ["node_modules/@types", "src/types"]
+        "noFallthroughCasesInSwitch": true // Report errors for fallthrough cases in switch statement
     },
     "include": [
         "src/**/*" // *** The files TypeScript should type check ***
     ],
-    "exclude": ["node_modules", "build"] // *** The files to not type check ***
+    "exclude": ["node_modules", "build"], // *** The files to not type check ***
+    "extends": "./tsconfig.paths.json"
 }
