@@ -9,7 +9,6 @@ interface IProductProps {
 }
 
 const Product: React.FC<IProductProps> = ({ product }) => {
-
     return (
         <Card className='p-3 my-3 rounded'>
             <Link to={`/products/${product._id}`}>
@@ -21,10 +20,10 @@ const Product: React.FC<IProductProps> = ({ product }) => {
                         <strong>{product.name}</strong>
                     </Card.Title>
                 </Link>
-                <Card.Text as="div">
+                <Card.Text as='h3'>${product.price}</Card.Text>
+                <Card.Text as="div" className="mb-2">
                     <Rating value={product.rating as number} text={`${product.numReviews} reviews`} />
                 </Card.Text>
-                <Card.Text as='h3'>${product.price}</Card.Text>
                 <Card.Text className="text-truncate" as="p">{product.description}</Card.Text>
             </Card.Body>
         </Card>

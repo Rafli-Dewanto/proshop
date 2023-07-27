@@ -3,26 +3,35 @@ import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { Row, Col, Image, ListGroup, Card, Button, ListGroupItem } from 'react-bootstrap'
 import Rating from '@/components/Rating'
-import useProductById from '@/hooks/use-product'
+import useProductById from '@/hooks/use-product-by-id'
 
 const ProductScreen = () => {
     const { id: productId } = useParams()
 
-    if (Number.isNaN(parseInt(productId!, 10))) {
-        return <>Not found</>
+    const { product, isLoading, errors } = useProductById(parseInt(productId!, 10))
+
+    if (errors.length > 0) {
+        return (
+            <div>
+                <h1 className='text-center mid'>404 | Not Found</h1>
+            </div>
+        )
     }
-    
-    const product = useProductById(parseInt(productId!, 10))
+
+    if (isLoading) {
+        return <div>Loading</div>
+    }
 
     return (
-        <div>
-            <Link className='btn btn-light my-3' to={`/`}>
+        <div className=''>
+            <Link className='my-3 btn btn-light' to={`/`}>
                 Go Back
             </Link>
             <Row>
                 <Col md={5}>
                     <Image src={product?.image} alt={product?.name} fluid />
                 </Col>
+
                 <Col md={4}>
                     <ListGroup variant='flush'>
                         <ListGroupItem>
@@ -34,6 +43,7 @@ const ProductScreen = () => {
                         <ListGroupItem>{product?.description}</ListGroupItem>
                     </ListGroup>
                 </Col>
+
                 <Col md={3}>
                     <Card>
                         <ListGroup variant='flush'>
