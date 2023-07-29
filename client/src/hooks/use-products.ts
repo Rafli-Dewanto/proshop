@@ -7,7 +7,8 @@ const useProducts = () => {
 
     const fetchProducts = useCallback(async () => {
         try {
-            const { data } = await axios.get(`/api/products`);            
+            const { data } = await axios.get(`/api/products`); 
+            console.log(data);
             setProducts(data);
         } catch (error) {
             console.error(error);

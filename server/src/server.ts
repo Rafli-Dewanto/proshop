@@ -1,10 +1,12 @@
 import express from 'express';
-import products from './data';
+import products from './data/products';
 import * as dotenv from 'dotenv';
 import cors from 'cors';
+import connectDb from './config/db';
 dotenv.config();
 
 const app = express();
+connectDb();
 const port = process.env.SERVER_PORT ?? 5176;
 
 app.use(express.json());
@@ -15,15 +17,15 @@ app.get('/api/products', (_req, res) => {
     res.status(200).json(products);
 });
 
-app.get('/api/products/:id', (req, res) => {
-    const id = parseInt(req.params.id);
-    if (Number.isNaN(id)) {
-        res.status(400).json({
-            error: ['product id must be a number'],
-        });
-    }
-    const product = products.find((p) => p._id === req.params.id);
-    res.json(product);
-});
+// app.get('/api/products/:id', (req, res) => {
+    // const id = parseInt(req.params.id);
+    // if (Number.isNaN(id)) {
+    //     res.status(400).json({
+    //         error: ['product id must be a number'],
+    //     });
+    // }
+    // const product = products.find((p) => p._id === req.params.id);
+    // res.json(product);
+// });
 
 app.listen(port, () => console.log(`listening on http://localhost:${port}`));
